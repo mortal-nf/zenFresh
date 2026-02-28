@@ -72,34 +72,6 @@ Wot Starter
 | [uni-ku-root](https://github.com/uni-ku/root)                                                               | 一个模拟 App.vue 原有能力的根组件插件                  |
 | [uni-echarts](https://uni-echarts.xiaohe.ink/)                                                             | 适用于 uni-app 的 Apache ECharts 组件                  |
 
-## 贡献者们
-
-感谢以下所有给 Wot Starter 贡献过代码的 [开发者](https://github.com/wot-ui/wot-starter/graphs/contributors)。
-
-<a href="https://github.com/wot-ui/wot-starter/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wot-ui/wot-starter" />
-</a>
-
-## 捐赠本项目
-
-开发一个好的模板是一项耗时的工作，尤其是要多端适配。为此 Wot Starter 的开发者经常肝到深夜 ……
-
-如果您认为 Wot Starter 帮助到了您的开发工作，您可以捐赠 Wot Starter 的研发工作，捐赠无门槛，哪怕是一杯可乐也好。
-
-捐赠后您的昵称、留言等将会展示在[捐赠榜单](https://wot-ui.cn/reward/donor.html)中。
-
-
-### 爱发电捐赠
-
-<a href="https://afdian.com/a/weisheng233">https://afdian.com/a/weisheng233</a>
-
-### 扫码捐赠
-
-<p>
-<img src="https://wot-ui.cn/weixinQrcode.jpg" width="200" height="200" style="margin-right:30px"/>
-<img src="https://wot-ui.cn/alipayQrcode.jpg" width="200" height="200" />
-</p>
-
 ## 鸣谢
 
 - [uni-helper](https://github.com/uni-helper) - 感谢 uni-helper 团队为 uni-app 开发体验优化做出的贡献。
