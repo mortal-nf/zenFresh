@@ -24,15 +24,6 @@
       }
     },
     {
-      "path": "pages/about/index",
-      "type": "page",
-      "name": "about",
-      "layout": "tabbar",
-      "style": {
-        "navigationBarTitleText": "我的"
-      }
-    },
-    {
       "path": "pages/charts/index",
       "type": "page",
       "name": "charts",
@@ -42,12 +33,30 @@
       }
     },
     {
+      "path": "pages/demo/index",
+      "type": "page",
+      "name": "demo",
+      "layout": "pages",
+      "style": {
+        "navigationBarTitleText": "演示"
+      }
+    },
+    {
       "path": "pages/home/index",
       "type": "page",
       "name": "home",
       "layout": "tabbar",
       "style": {
         "navigationBarTitleText": "工作台"
+      }
+    },
+    {
+      "path": "pages/mine/index",
+      "type": "page",
+      "name": "mine",
+      "layout": "tabbar",
+      "style": {
+        "navigationBarTitleText": "我的"
       }
     }
   ],
@@ -371,6 +380,18 @@
           "style": {
             "navigationBarTitleText": "系统设置"
           }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/analysis",
+          "type": "page"
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/mine",
+          "type": "page"
         }
         // #endif
       ]
@@ -419,7 +440,7 @@
         "pagePath": "pages/index/index"
       },
       // #endif
-      // #ifdef APP || H5 || MP-WEIXIN
+      // #ifdef APP || H5
       {
         "pagePath": "pages/about/index"
       },
@@ -429,6 +450,9 @@
       },
       {
         "pagePath": "pages/charts/index"
+      },
+      {
+        "pagePath": "pages/mine/index"
       }
     ]
   }

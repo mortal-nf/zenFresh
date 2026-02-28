@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { useRouter } from '@wot-ui/router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useGlobalToast } from '@/composables/useGlobalToast'
+import { useManualTheme } from '@/composables/useManualTheme'
 
-definePage({
-  name: 'about',
-  layout: 'tabbar',
-  style: {
-    navigationBarTitleText: '我的',
-  },
+defineOptions({
+  name: 'AdminMine',
 })
 
 const router = useRouter()
 const { success } = useGlobalToast()
+const { currentThemeColor, theme, toggleTheme: _toggleTheme } = useManualTheme()
+
+const isDark = computed(() => theme.value === 'dark')
 
 const currentRole = ref('admin')
 const roles = [
@@ -110,10 +110,16 @@ function handleSettingClick(item: typeof settingItems[0]) {
 
 <template>
   <view class="min-h-screen">
-    <view class="from-indigo-600 via-purple-600 to-pink-500 bg-gradient-to-br px-5 pb-8 pt-6">
+    <view
+      class="px-5 pb-8 pt-6"
+      :class="isDark ? 'bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600' : 'bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500'"
+    >
       <view class="flex items-center">
         <view class="relative mr-4">
-          <view class="h-16 w-16 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+          <view
+            class="h-16 w-16 flex items-center justify-center rounded-full backdrop-blur-sm"
+            :class="isDark ? 'bg-slate-700/50' : 'bg-white/30'"
+          >
             <text class="text-3xl">
               {{ userInfo.avatar }}
             </text>
@@ -142,7 +148,10 @@ function handleSettingClick(item: typeof settingItems[0]) {
       </view>
 
       <view class="grid grid-cols-3 mt-6 gap-3">
-        <view class="rounded-2xl bg-white/20 p-3 text-center backdrop-blur-sm">
+        <view
+          class="rounded-2xl p-3 text-center backdrop-blur-sm"
+          :class="isDark ? 'bg-slate-700/50' : 'bg-white/20'"
+        >
           <text class="block text-xl text-white font-bold">
             128
           </text>
@@ -150,7 +159,10 @@ function handleSettingClick(item: typeof settingItems[0]) {
             客户数
           </text>
         </view>
-        <view class="rounded-2xl bg-white/20 p-3 text-center backdrop-blur-sm">
+        <view
+          class="rounded-2xl p-3 text-center backdrop-blur-sm"
+          :class="isDark ? 'bg-slate-700/50' : 'bg-white/20'"
+        >
           <text class="block text-xl text-white font-bold">
             1,280
           </text>
@@ -158,7 +170,10 @@ function handleSettingClick(item: typeof settingItems[0]) {
             订单数
           </text>
         </view>
-        <view class="rounded-2xl bg-white/20 p-3 text-center backdrop-blur-sm">
+        <view
+          class="rounded-2xl p-3 text-center backdrop-blur-sm"
+          :class="isDark ? 'bg-slate-700/50' : 'bg-white/20'"
+        >
           <text class="block text-xl text-white font-bold">
             ¥8.6w
           </text>
@@ -182,7 +197,11 @@ function handleSettingClick(item: typeof settingItems[0]) {
             <text class="mr-1.5 text-base">
               {{ role.icon }}
             </text>
-            <text :class="currentRole === role.key ? 'text-indigo-600' : 'text-slate-500'" class="text-sm font-medium">
+            <text
+              :class="currentRole === role.key ? '' : 'text-slate-500'"
+              class="text-sm font-medium"
+              :style="currentRole === role.key ? { color: currentThemeColor.primary } : {}"
+            >
               {{ role.label }}
             </text>
           </view>
@@ -192,7 +211,10 @@ function handleSettingClick(item: typeof settingItems[0]) {
 
     <view class="px-4 pt-6">
       <view class="mb-3 flex items-center">
-        <view class="mr-2 h-5 w-1 rounded-full from-indigo-500 to-pink-500 bg-gradient-to-r" />
+        <view
+          class="mr-2 h-5 w-1 rounded-full bg-gradient-to-r"
+          :style="{ backgroundImage: `linear-gradient(to right, ${currentThemeColor.primary}, ${currentThemeColor.primary}80)` }"
+        />
         <text class="text-base text-gray-800 font-semibold">
           业务管理
         </text>
@@ -200,13 +222,16 @@ function handleSettingClick(item: typeof settingItems[0]) {
 
       <view class="rounded-2xl bg-white shadow-sm">
         <view
-          v-for="(item, index) in menuItems"
+          v-for="item in menuItems"
           :key="item.title"
           class="flex items-center justify-between border-b border-gray-50 px-4 py-4 last:border-b-0"
           @click="handleMenuClick(item)"
         >
           <view class="flex items-center">
-            <view class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl from-indigo-50 to-purple-50 bg-gradient-to-br">
+            <view
+              class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl"
+              :style="{ backgroundColor: `${currentThemeColor.primary}15` }"
+            >
               <text class="text-xl">
                 {{ item.icon }}
               </text>
@@ -228,55 +253,60 @@ function handleSettingClick(item: typeof settingItems[0]) {
     </view>
 
     <view class="px-4 pt-6">
-      <view class="mb-3 flex items-center">
-        <view class="mr-2 h-5 w-1 rounded-full from-slate-400 to-slate-600 bg-gradient-to-r" />
-        <text class="text-base text-gray-800 font-semibold">
-          其他设置
-        </text>
-      </view>
+      <view class="px-4 pt-6">
+        <view class="mb-3 flex items-center">
+          <view class="mr-2 h-5 w-1 rounded-full from-slate-400 to-slate-600 bg-gradient-to-r" />
+          <text class="text-base text-gray-800 font-semibold">
+            其他设置
+          </text>
+        </view>
 
-      <view class="rounded-2xl bg-white shadow-sm">
-        <view
-          v-for="(item, index) in settingItems"
-          :key="item.title"
-          class="flex items-center justify-between border-b border-gray-50 px-4 py-4 last:border-b-0"
-          @click="handleSettingClick(item)"
-        >
-          <view class="flex items-center">
-            <view class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl from-slate-50 to-slate-100 bg-gradient-to-br">
-              <text class="text-xl">
-                {{ item.icon }}
+        <view class="rounded-2xl bg-white shadow-sm">
+          <view
+            v-for="item in settingItems"
+            :key="item.title"
+            class="flex items-center justify-between border-b border-gray-50 px-4 py-4 last:border-b-0"
+            @click="handleSettingClick(item)"
+          >
+            <view class="flex items-center">
+              <view class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl bg-slate-100">
+                <text class="text-xl">
+                  {{ item.icon }}
+                </text>
+              </view>
+              <text class="text-gray-800 font-medium">
+                {{ item.title }}
               </text>
             </view>
-            <text class="text-gray-800 font-medium">
-              {{ item.title }}
+            <text class="text-gray-300">
+              ›
             </text>
           </view>
-          <text class="text-gray-300">
-            ›
+        </view>
+      </view>
+
+      <view class="px-4 pb-8 pt-6">
+        <view
+          class="rounded-2xl p-5 text-center shadow-lg"
+          :style="{ backgroundImage: `linear-gradient(to right, ${currentThemeColor.primary}, ${currentThemeColor.primary}dd)` }"
+        >
+          <text class="mb-2 block text-sm text-white/80">
+            绑定码
+          </text>
+          <text class="block text-2xl text-white font-bold tracking-widest">
+            {{ userInfo.bindCode }}
+          </text>
+          <text class="mt-2 block text-xs text-white/60">
+            分享给他人即可绑定
           </text>
         </view>
       </view>
-    </view>
 
-    <view class="px-4 pb-8 pt-6">
-      <view class="rounded-2xl from-indigo-500 to-purple-600 bg-gradient-to-br p-5 text-center shadow-indigo-500/20 shadow-lg">
-        <text class="mb-2 block text-sm text-white/80">
-          绑定码
-        </text>
-        <text class="block text-2xl text-white font-bold tracking-widest">
-          {{ userInfo.bindCode }}
-        </text>
-        <text class="mt-2 block text-xs text-white/60">
-          分享给他人即可绑定
+      <view class="pb-8 text-center">
+        <text class="text-xs text-gray-400">
+          真鲜速达 ZenFresh v1.4.0
         </text>
       </view>
-    </view>
-
-    <view class="pb-8 text-center">
-      <text class="text-xs text-gray-400">
-        真鲜速达 ZenFresh v1.4.0
-      </text>
     </view>
   </view>
 </template>

@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import AdminAnalysis from '@/subPages/adminer/analysis.vue'
+import AdminMine from '@/subPages/adminer/mine.vue'
 
 defineOptions({
   componentPlaceholder: {
-    AdminAnalysis: 'view',
+    AdminMine: 'view',
   },
 })
 
 definePage({
-  name: 'charts',
+  name: 'mine',
   layout: 'tabbar',
   style: {
-    navigationBarTitleText: '分析',
+    navigationBarTitleText: '我的',
   },
 })
 </script>
 
 <template>
   <view>
-    <AdminAnalysis />
+    <AdminMine />
   </view>
 </template>

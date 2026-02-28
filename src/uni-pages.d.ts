@@ -5,10 +5,13 @@
 
 type _LocationUrl =
   "/pages/index/index" |
-  "/pages/about/index" |
   "/pages/charts/index" |
+  "/pages/demo/index" |
   "/pages/home/index" |
+  "/pages/mine/index" |
+  "/subPages/adminer/analysis" |
   "/subPages/adminer/index" |
+  "/subPages/adminer/mine" |
   "/subPages/ci/index" |
   "/subPages/create-uni/index" |
   "/subPages/feedback/index" |
@@ -43,7 +46,7 @@ interface NavigateToOptions {
 interface RedirectToOptions extends NavigateToOptions {}
 
 interface SwitchTabOptions {
-  url: "/pages/home/index" | "/pages/charts/index" | "/pages/about/index"
+  url: "/pages/home/index" | "/pages/charts/index" | "/pages/mine/index"
 }
 
 type ReLaunchOptions = NavigateToOptions | SwitchTabOptions;

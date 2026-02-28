@@ -8,21 +8,18 @@ export interface TabbarItem {
   icon: string
 }
 
-
 const roleOptions = {
-  [Role.ADMINER] : [
+  [Role.ADMINER]: [
     { name: 'home', value: null, active: true, title: '工作台', icon: 'home' },
     { name: 'charts', value: null, active: false, title: '分析', icon: 'chart' },
-    { name: 'about', value: null, active: false, title: '我的', icon: 'user' },
+    { name: 'mine', value: null, active: false, title: '我的', icon: 'user' },
   ],
-  [Role.SUPPLIER] : [
+  [Role.SUPPLIER]: [
     { name: 'home', value: null, active: true, title: '工作台', icon: 'home' },
     { name: 'charts', value: null, active: false, title: '分析', icon: 'chart' },
-    { name: 'about', value: null, active: false, title: '我的', icon: 'user' },
+    { name: 'mine', value: null, active: false, title: '我的', icon: 'user' },
   ],
 }
-
-
 
 const tabbarItems = ref<TabbarItem[]>([])
 
