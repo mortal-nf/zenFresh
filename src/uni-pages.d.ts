@@ -5,6 +5,7 @@
 
 type _LocationUrl =
   "/pages/index/index" |
+  "/pages/about/index" |
   "/pages/charts/index" |
   "/pages/demo/index" |
   "/pages/home/index" |

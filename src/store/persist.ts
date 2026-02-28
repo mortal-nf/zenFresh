@@ -9,7 +9,7 @@
  */
 import type { PiniaPluginContext } from 'pinia'
 
-function persist({ store }: PiniaPluginContext, excludedIds: string[]) {
+export function persist({ store }: PiniaPluginContext, excludedIds: string[]) {
   // 检查当前store的id是否在排除列表中
   const isExcluded = excludedIds.includes(store.$id)
 
