@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+// 获取当前使用的角色
+// const userInfo = useUserInfo()
+import { Role } from '@/shard/index'
+
 const router = useRouter()
 
 const route = useRoute()
 
-const { activeTabbar, getTabbarItemValue, setTabbarItemActive, tabbarList } = useTabbar()
+const { activeTabbar, getTabbarItemValue, setTabbarItemActive, tabbarList } = useTabbar(Role.ADMINER)
 
 function handleTabbarChange({ value }: { value: string }) {
   setTabbarItemActive(value)

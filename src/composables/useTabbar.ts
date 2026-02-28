@@ -1,3 +1,5 @@
+import { Role } from '@/shard/index'
+
 export interface TabbarItem {
   name: string
   value: number | null
@@ -6,12 +8,28 @@ export interface TabbarItem {
   icon: string
 }
 
-const tabbarItems = ref<TabbarItem[]>([
-  { name: 'home', value: null, active: true, title: '首页', icon: 'home' },
-  { name: 'about', value: null, active: false, title: '关于', icon: 'user' },
-])
 
-export function useTabbar() {
+const roleOptions = {
+  [Role.ADMINER] : [
+    { name: 'home', value: null, active: true, title: '工作台', icon: 'home' },
+    { name: 'charts', value: null, active: false, title: '分析', icon: 'chart' },
+    { name: 'about', value: null, active: false, title: '我的', icon: 'user' },
+  ],
+  [Role.SUPPLIER] : [
+    { name: 'home', value: null, active: true, title: '工作台', icon: 'home' },
+    { name: 'charts', value: null, active: false, title: '分析', icon: 'chart' },
+    { name: 'about', value: null, active: false, title: '我的', icon: 'user' },
+  ],
+}
+
+
+
+const tabbarItems = ref<TabbarItem[]>([])
+
+export function useTabbar(role: string) {
+  if (role === 'ADMINER') {
+    tabbarItems.value = roleOptions.ADMINER
+  }
   const tabbarList = computed(() => tabbarItems.value)
 
   const activeTabbar = computed(() => {
@@ -42,11 +60,16 @@ export function useTabbar() {
     })
   }
 
+  const updateTabbarItems = (items: TabbarItem[]) => {
+    tabbarItems.value = items
+  }
+
   return {
     tabbarList,
     activeTabbar,
     getTabbarItemValue,
     setTabbarItem,
     setTabbarItemActive,
+    updateTabbarItems,
   }
 }

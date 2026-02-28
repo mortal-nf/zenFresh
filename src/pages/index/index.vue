@@ -6,7 +6,7 @@ definePage({
   name: 'startPage',
   layout: 'default',
   style: {
-    navigationBarTitleText: 'zenFresh',
+    navigationStyle: 'custom',
   },
 })
 

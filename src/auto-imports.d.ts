@@ -9,6 +9,7 @@ declare global {
   const Apis: typeof import('./api/index')['Apis']
   const CommonUtil: typeof import('wot-design-uni')['CommonUtil']
   const EffectScope: typeof import('vue')['EffectScope']
+  const Role: typeof import('./composables/useTabbar')['Role']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const alovaInstance: typeof import('./api/index')['alovaInstance']
   const api: typeof import('./api/index')['default']

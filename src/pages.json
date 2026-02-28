@@ -47,7 +47,7 @@
       "name": "home",
       "layout": "tabbar",
       "style": {
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "工作台"
       }
     }
   ],
@@ -195,6 +195,22 @@
             "navigationBarBackgroundColor": "#f9fafb",
             "navigationBarTextStyle": "black"
           }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "管理员"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/index",
+          "type": "page"
         }
         // #endif
       ]
@@ -250,6 +266,9 @@
       // #endif
       {
         "pagePath": "pages/home/index"
+      },
+      {
+        "pagePath": "pages/charts/index"
       }
     ]
   }

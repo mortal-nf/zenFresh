@@ -45,8 +45,13 @@ export default defineUniPages({
     borderStyle: '@tabBorderStyle',
     list: [{
       pagePath: 'pages/home/index',
-    }, {
+    },
+    {
+      pagePath: 'pages/charts/index',
+    },
+    {
       pagePath: 'pages/about/index',
-    }],
+    },
+    ],
   },
 })
