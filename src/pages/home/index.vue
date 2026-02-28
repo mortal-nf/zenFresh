@@ -16,7 +16,6 @@ definePage({
     navigationBarTitleText: '工作台',
   },
 })
-
 </script>
 
 <template>

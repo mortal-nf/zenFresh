@@ -26,6 +26,14 @@ type _LocationUrl =
   "/subPages/skills/index" |
   "/subPages/styles/index" |
   "/subPages/uni-ku-root/index" |
+  "/subPages/adminer/about/index" |
+  "/subPages/adminer/inventory/index" |
+  "/subPages/adminer/orders/index" |
+  "/subPages/adminer/settings/index" |
+  "/subPages/adminer/farmer/add/index" |
+  "/subPages/adminer/hotel/add/index" |
+  "/subPages/adminer/purchase/add/index" |
+  "/subPages/adminer/sale/add/index" |
   "/subEcharts/echarts/index" |
   "/subAsyncEcharts/asyncEcharts/index";
 

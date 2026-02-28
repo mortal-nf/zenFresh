@@ -29,7 +29,7 @@
       "name": "about",
       "layout": "tabbar",
       "style": {
-        "navigationBarTitleText": "关于"
+        "navigationBarTitleText": "我的"
       }
     },
     {
@@ -211,6 +211,166 @@
         {
           "path": "adminer/index",
           "type": "page"
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/purchase/add/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "录入采购"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/purchase/add/index",
+          "type": "page",
+          "name": "purchase-add",
+          "style": {
+            "navigationBarTitleText": "录入采购"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/sale/add/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "录入销售"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/sale/add/index",
+          "type": "page",
+          "name": "sale-add",
+          "style": {
+            "navigationBarTitleText": "录入销售"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/inventory/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "库存管理"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/inventory/index",
+          "type": "page",
+          "name": "inventory",
+          "style": {
+            "navigationBarTitleText": "库存管理"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/orders/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "订单管理"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/orders/index",
+          "type": "page",
+          "name": "orders",
+          "style": {
+            "navigationBarTitleText": "订单管理"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/farmer/add/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "录入农户"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/farmer/add/index",
+          "type": "page",
+          "name": "farmer-add",
+          "style": {
+            "navigationBarTitleText": "录入农户"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/hotel/add/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "录入酒店"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/hotel/add/index",
+          "type": "page",
+          "name": "hotel-add",
+          "style": {
+            "navigationBarTitleText": "录入酒店"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/about/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "关于我们"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/about/index",
+          "type": "page",
+          "name": "about",
+          "style": {
+            "navigationBarTitleText": "关于我们"
+          }
+        },
+        // #endif
+        // #ifdef APP || H5
+        {
+          "path": "adminer/settings/index",
+          "type": "page",
+          "layout": "default",
+          "style": {
+            "navigationBarTitleText": "系统设置"
+          }
+        },
+        // #endif
+        // #ifdef MP-WEIXIN
+        {
+          "path": "adminer/settings/index",
+          "type": "page",
+          "name": "settings",
+          "style": {
+            "navigationBarTitleText": "系统设置"
+          }
         }
         // #endif
       ]

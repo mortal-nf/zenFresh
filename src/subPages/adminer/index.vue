@@ -1,14 +1,74 @@
 <script setup lang="ts">
 import { onShow } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { useRouter } from '@wot-ui/router'
+import { computed, ref } from 'vue'
+import { useGlobalToast } from '@/composables/useGlobalToast'
 
 defineOptions({
   name: 'Adminer',
 })
-// import {useUserStore} from '@/store/user'
 
-// const userStore = useUserStore()
-const pendingSales = ref<any[]>([])
+const router = useRouter()
+const { success } = useGlobalToast()
+
+const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
+const today = new Date()
+const currentDate = computed(() => {
+  const month = today.getMonth() + 1
+  const date = today.getDate()
+  const day = weekDays[today.getDay()]
+  return `${month}月${date}日 ${day}`
+})
+
+const greeting = computed(() => {
+  const hour = today.getHours()
+  if (hour < 12)
+    return '早上好'
+  if (hour < 18)
+    return '下午好'
+  return '晚上好'
+})
+
+const pendingSales = ref([
+  {
+    _id: '1',
+    customerName: '李记酒店',
+    deliveryTime: '16:00',
+    status: 'pending',
+    items: '土鸡×10 草鱼×5',
+    amount: 680,
+  },
+  {
+    _id: '2',
+    customerName: '王大厨',
+    deliveryTime: '',
+    status: 'delivered',
+    items: '鸭×20',
+    amount: 1200,
+  },
+  {
+    _id: '3',
+    customerName: '张大厨',
+    deliveryTime: '',
+    status: 'confirmed',
+    items: '鸡×30',
+    amount: 2100,
+  },
+])
+
+const stats = ref([
+  { label: '今日订单', value: '12', icon: 'i-carbon-document', trend: '+3', color: '#6366f1' },
+  { label: '待处理', value: '5', icon: 'i-carbon-time', trend: '+2', color: '#f59e0b' },
+  { label: '销售额', value: '¥8.6k', value2: '较昨日', trend: '+12%', color: '#10b981' },
+])
+
+const quickActions = [
+  { label: '录采购', icon: 'i-carbon-shopping-cart', path: '/subPages/adminer/purchase/add/index', color: '#6366f1' },
+  { label: '录销售', icon: 'i-carbon-receipt', path: '/subPages/adminer/sale/add/index', color: '#ec4899' },
+  { label: '库存', icon: 'i-carbon-inventory', path: '/subPages/adminer/inventory/index', color: '#10b981' },
+  { label: '订单', icon: 'i-carbon-document', path: '/subPages/adminer/orders/index', color: '#f59e0b' },
+]
 
 onShow(async () => {
   await loadPendingSales()
@@ -16,13 +76,6 @@ onShow(async () => {
 
 async function loadPendingSales() {
   try {
-    // TODO: 使用 uniCloud 获取待确认销售单
-    // const db = uniCloud.database()
-    // const res = await db.collection('sales')
-    //   .where({ status: 'pending' })
-    //   .orderBy('createTime', 'desc')
-    //   .get()
-    // pendingSales.value = res.data || []
     console.log('loadPendingSales')
   }
   catch (e) {
@@ -30,233 +83,204 @@ async function loadPendingSales() {
   }
 }
 
-function navTo(url: string) {
-  uni.navigateTo({ url })
+function handleAction(item: any) {
+  if (item.status === 'pending') {
+    router.push({ path: `/subPages/adminer/sale/detail/index`, query: { id: item._id } })
+  }
+  else if (item.status === 'delivered') {
+    success({ msg: '已提醒客户确认' })
+  }
 }
 
-async function handleConfirm(sale: any) {
-  uni.navigateTo({
-    url: `/pages/operator/sale/detail/index?id=${sale._id}`,
-  })
+function getStatusConfig(status: string) {
+  const config = {
+    pending: { label: '待处理', color: '#3b82f6', bg: '#eff6ff', icon: '⏳' },
+    delivered: { label: '待确认', color: '#f59e0b', bg: '#fffbeb', icon: '🚚' },
+    confirmed: { label: '已完成', color: '#10b981', bg: '#ecfdf5', icon: '✅' },
+  }
+  return config[status as keyof typeof config] || config.pending
 }
 </script>
 
 <template>
-  <view class="home">
-    <view class="welcome">
-      <text class="name">
-        {{ '处理者' }}
-      </text>
-      <text class="role">
-        处理者
-      </text>
-    </view>
+  <view class="min-h-screen bg-slate-50">
+    <view class="from-indigo-600 via-purple-600 to-pink-500 bg-gradient-to-br px-5 pb-8 pt-5">
+      <view class="mb-6 flex items-center justify-between">
+        <view>
+          <text class="mb-1 block text-sm text-white/80">
+            {{ greeting }}，管理员
+          </text>
+          <text class="text-2xl text-white font-bold">
+            {{ currentDate }}
+          </text>
+        </view>
+        <view class="h-12 w-12 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+          <text class="text-2xl">
+            👤
+          </text>
+        </view>
+      </view>
 
-    <view class="quick-actions">
-      <view class="action-grid">
-        <view class="action-item" @click="navTo('/pages/operator/purchase/add/index')">
-          <text class="action-icon">
-            📦
-          </text>
-          <text class="action-text">
-            采购录入
-          </text>
-        </view>
-        <view class="action-item" @click="navTo('/pages/operator/sale/add/index')">
-          <text class="action-icon">
-            🛒
-          </text>
-          <text class="action-text">
-            销售录入
-          </text>
-        </view>
-        <view class="action-item" @click="navTo('/pages/operator/inventory/list/index')">
-          <text class="action-icon">
-            📊
-          </text>
-          <text class="action-text">
-            库存查看
-          </text>
-        </view>
-        <view class="action-item" @click="navTo('/pages/operator/records/list/index')">
-          <text class="action-icon">
-            📋
-          </text>
-          <text class="action-text">
-            记录查询
-          </text>
+      <view class="grid grid-cols-3 gap-3">
+        <view
+          v-for="stat in stats"
+          :key="stat.label"
+          class="rounded-2xl bg-white/20 p-3 backdrop-blur-sm"
+        >
+          <view class="mb-1 text-xs text-white/70">
+            {{ stat.label }}
+          </view>
+          <view class="mb-1 text-xl text-white font-bold">
+            {{ stat.value }}
+          </view>
+          <view class="flex items-center text-xs text-emerald-300">
+            <text class="mr-1">
+              {{ stat.trend }}
+            </text>
+            <text v-if="stat.value2" class="text-white/50">
+              {{ stat.value2 }}
+            </text>
+          </view>
         </view>
       </view>
     </view>
 
-    <view class="pending-section">
-      <view class="section-header">
-        <text class="section-title">
-          待确认销售单
-        </text>
-        <text class="count">
-          {{ pendingSales.length }}
+    <view class="mx-4 -mt-6">
+      <view class="grid grid-cols-4 gap-3 rounded-2xl bg-white p-4 shadow-indigo-500/10 shadow-lg">
+        <view
+          v-for="action in quickActions"
+          :key="action.label"
+          class="flex flex-col items-center"
+          @click="action.path && router.push({ path: action.path })"
+        >
+          <view
+            class="mb-2 h-12 w-12 flex items-center justify-center rounded-xl"
+            :style="{ backgroundColor: `${action.color}15` }"
+          >
+            <text class="text-xl" :class="[action.icon]" :style="{ color: action.color }" />
+          </view>
+          <text class="text-xs text-gray-600">
+            {{ action.label }}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <view class="px-5 pt-6">
+      <view class="mb-4 flex items-center justify-between">
+        <view class="flex items-center">
+          <view class="mr-2 h-5 w-1 rounded-full from-indigo-500 to-pink-500 bg-gradient-to-r" />
+          <text class="text-lg text-gray-800 font-semibold">
+            待办事项
+          </text>
+        </view>
+        <view class="flex items-center rounded-full bg-red-50 px-3 py-1">
+          <text class="mr-1 text-xs text-red-500 font-medium">
+            {{ pendingSales.length }}
+          </text>
+          <text class="text-xs text-red-400">
+            项
+          </text>
+        </view>
+      </view>
+
+      <view v-if="pendingSales.length === 0" class="rounded-2xl bg-white py-12 text-center shadow-sm">
+        <view class="mb-2 text-4xl">
+          🎉
+        </view>
+        <text class="text-gray-400">
+          暂无待办事项
         </text>
       </view>
 
-      <view v-if="pendingSales.length === 0" class="empty">
-        <text>暂无待确认订单</text>
-      </view>
-
-      <view v-else class="pending-list">
+      <view v-else class="space-y-3">
         <view
           v-for="item in pendingSales"
           :key="item._id"
-          class="pending-item"
-          @click="handleConfirm(item)"
+          class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:shadow-md"
         >
-          <view class="item-info">
-            <text class="customer-name">
-              {{ item.customerName || '未知酒店' }}
-            </text>
-            <text class="delivery-date">
-              配送日期: {{ item.deliveryDate }}
-            </text>
+          <view class="flex items-center justify-between p-4">
+            <view class="flex items-center">
+              <view
+                class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl text-lg"
+                :style="{ backgroundColor: getStatusConfig(item.status).bg }"
+              >
+                {{ getStatusConfig(item.status).icon }}
+              </view>
+              <view>
+                <view class="mb-0.5 flex items-center">
+                  <text class="mr-2 text-gray-800 font-medium">
+                    {{ item.customerName }}
+                  </text>
+                  <view
+                    class="rounded-full px-2 py-0.5 text-xs"
+                    :style="{ backgroundColor: getStatusConfig(item.status).bg, color: getStatusConfig(item.status).color }"
+                  >
+                    {{ getStatusConfig(item.status).label }}
+                  </view>
+                </view>
+                <text class="text-sm text-gray-400">
+                  {{ item.items }}
+                </text>
+              </view>
+            </view>
+            <view class="text-right">
+              <text class="block text-gray-800 font-semibold">
+                ¥{{ item.amount }}
+              </text>
+              <text v-if="item.deliveryTime" class="text-xs text-gray-400">
+                {{ item.deliveryTime }}配送
+              </text>
+            </view>
           </view>
-          <view class="item-status">
-            <text class="status-tag">
-              待确认
-            </text>
+          <view
+            v-if="item.status === 'pending' || item.status === 'delivered'"
+            class="flex border-t border-gray-50"
+          >
+            <view
+              class="flex-1 cursor-pointer p-3 text-center transition-colors hover:bg-gray-50"
+              @click="handleAction(item)"
+            >
+              <text
+                class="text-sm font-medium"
+                :style="{ color: item.status === 'pending' ? '#3b82f6' : '#f59e0b' }"
+              >
+                {{ item.status === 'pending' ? '开始处理' : '提醒确认' }}
+              </text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="px-5 pb-8 pt-6">
+      <view class="mb-4 flex items-center">
+        <view class="mr-2 h-5 w-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" />
+        <text class="text-lg font-semibold text-gray-800">
+          快捷功能
+        </text>
+      </view>
+
+      <view class="grid grid-cols-2 gap-3">
+        <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/charts/index' })">
+          <view class="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
+            <text class="text-lg text-amber-500">📊</text>
+          </view>
+          <view>
+            <text class="block font-medium text-gray-800">数据统计</text>
+            <text class="text-xs text-gray-400">查看经营数据</text>
+          </view>
+        </view>
+        <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/profile/index' })">
+          <view class="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50">
+            <text class="text-lg text-purple-500">👥</text>
+          </view>
+          <view>
+            <text class="block font-medium text-gray-800">我的</text>
+            <text class="text-xs text-gray-400">身份切换/设置</text>
           </view>
         </view>
       </view>
     </view>
   </view>
 </template>
-
-<style scoped lang="scss">
-.home {
-  min-height: 100vh;
-  background: #f5f5f5;
-  padding: 30rpx;
-
-  .welcome {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30rpx;
-
-    .name {
-      font-size: 40rpx;
-      font-weight: bold;
-      color: #333;
-      margin-right: 20rpx;
-    }
-
-    .role {
-      font-size: 24rpx;
-      color: #667eea;
-      background: rgba(102, 126, 234, 0.1);
-      padding: 8rpx 16rpx;
-      border-radius: 20rpx;
-    }
-  }
-
-  .quick-actions {
-    background: #fff;
-    border-radius: 16rpx;
-    padding: 30rpx;
-    margin-bottom: 30rpx;
-
-    .action-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20rpx;
-
-      .action-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .action-icon {
-          font-size: 48rpx;
-          margin-bottom: 10rpx;
-        }
-
-        .action-text {
-          font-size: 24rpx;
-          color: #666;
-        }
-      }
-    }
-  }
-
-  .pending-section {
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20rpx;
-
-      .section-title {
-        font-size: 32rpx;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .count {
-        font-size: 24rpx;
-        color: #fff;
-        background: #ff3b30;
-        padding: 4rpx 12rpx;
-        border-radius: 20rpx;
-      }
-    }
-
-    .empty {
-      background: #fff;
-      border-radius: 16rpx;
-      padding: 60rpx;
-      text-align: center;
-
-      text {
-        color: #999;
-        font-size: 28rpx;
-      }
-    }
-
-    .pending-list {
-      .pending-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-        border-radius: 16rpx;
-        padding: 24rpx;
-        margin-bottom: 20rpx;
-
-        .item-info {
-          display: flex;
-          flex-direction: column;
-
-          .customer-name {
-            font-size: 28rpx;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8rpx;
-          }
-
-          .delivery-date {
-            font-size: 24rpx;
-            color: #999;
-          }
-        }
-
-        .item-status {
-          .status-tag {
-            font-size: 24rpx;
-            color: #ff9500;
-            background: rgba(255, 149, 0, 0.1);
-            padding: 8rpx 16rpx;
-            border-radius: 20rpx;
-          }
-        }
-      }
-    }
-  }
-}
-</style>
