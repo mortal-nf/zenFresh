@@ -26,9 +26,12 @@ const roleOptions = {
 
 const tabbarItems = ref<TabbarItem[]>([])
 
-export function useTabbar(role: string) {
-  if (role === 'ADMINER') {
-    tabbarItems.value = roleOptions.ADMINER
+export function useTabbar(role: Role) {
+  if (role === Role.ADMINER) {
+    tabbarItems.value = roleOptions[Role.ADMINER]
+  }
+  else if (role === Role.SUPPLIER) {
+    tabbarItems.value = roleOptions[Role.SUPPLIER]
   }
   const tabbarList = computed(() => tabbarItems.value)
 
