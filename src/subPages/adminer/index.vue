@@ -66,7 +66,7 @@ const stats = ref([
 const quickActions = [
   { label: '录采购', icon: 'i-carbon-shopping-cart', path: '/subPages/adminer/purchase/add/index', color: '#6366f1' },
   { label: '录销售', icon: 'i-carbon-receipt', path: '/subPages/adminer/sale/add/index', color: '#ec4899' },
-  { label: '库存', icon: 'i-carbon-inventory', path: '/subPages/adminer/inventory/index', color: '#10b981' },
+  { label: '库存', icon: 'i-carbon-ibm-db2-warehouse', path: '/subPages/adminer/inventory/index', color: '#10b981' },
   { label: '订单', icon: 'i-carbon-document', path: '/subPages/adminer/orders/index', color: '#f59e0b' },
 ]
 
@@ -255,29 +255,41 @@ function getStatusConfig(status: string) {
 
     <view class="px-5 pb-8 pt-6">
       <view class="mb-4 flex items-center">
-        <view class="mr-2 h-5 w-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" />
-        <text class="text-lg font-semibold text-gray-800">
+        <view class="mr-2 h-5 w-1 rounded-full from-emerald-500 to-teal-500 bg-gradient-to-r" />
+        <text class="text-lg text-gray-800 font-semibold">
           快捷功能
         </text>
       </view>
 
       <view class="grid grid-cols-2 gap-3">
         <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/charts/index' })">
-          <view class="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
-            <text class="text-lg text-amber-500">📊</text>
+          <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50">
+            <text class="text-lg text-amber-500">
+              📊
+            </text>
           </view>
           <view>
-            <text class="block font-medium text-gray-800">数据统计</text>
-            <text class="text-xs text-gray-400">查看经营数据</text>
+            <text class="block text-gray-800 font-medium">
+              数据统计
+            </text>
+            <text class="text-xs text-gray-400">
+              查看经营数据
+            </text>
           </view>
         </view>
         <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/profile/index' })">
-          <view class="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50">
-            <text class="text-lg text-purple-500">👥</text>
+          <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-purple-50">
+            <text class="text-lg text-purple-500">
+              👥
+            </text>
           </view>
           <view>
-            <text class="block font-medium text-gray-800">我的</text>
-            <text class="text-xs text-gray-400">身份切换/设置</text>
+            <text class="block text-gray-800 font-medium">
+              我的
+            </text>
+            <text class="text-xs text-gray-400">
+              身份切换/设置
+            </text>
           </view>
         </view>
       </view>
