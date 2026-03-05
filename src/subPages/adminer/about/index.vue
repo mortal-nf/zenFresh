@@ -43,7 +43,7 @@ function handleFeedback() {
 
 <template>
   <view class="min-h-screen bg-slate-50">
-    <view class="from-indigo-600 via-purple-600 to-pink-500 bg-gradient-to-r px-5 py-8">
+    <view class="bg-gradient-to-br from-slate-600 via-slate-500 to-slate-400 px-5 py-8">
       <view class="text-center">
         <view class="mb-4 h-20 w-20 inline-flex items-center justify-center rounded-3xl bg-white/20 backdrop-blur-sm">
           <text class="text-4xl">

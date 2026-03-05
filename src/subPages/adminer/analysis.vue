@@ -109,7 +109,7 @@ function getCategoryTrend(categoryName: string) {
 
 <template>
   <view class="min-h-screen bg-slate-50">
-    <view class="from-violet-600 via-indigo-600 to-blue-500 bg-gradient-to-r px-5 py-4">
+    <view class="from-violet-600 via-indigo-500 to-blue-500 bg-gradient-to-r px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">

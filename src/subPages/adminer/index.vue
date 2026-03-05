@@ -104,7 +104,7 @@ function getStatusConfig(status: string) {
 
 <template>
   <view class="min-h-screen bg-slate-50">
-    <view class="from-indigo-600 via-purple-600 to-pink-500 bg-gradient-to-br px-5 pb-8 pt-5">
+    <view class="from-violet-600 via-purple-600 to-pink-500 bg-gradient-to-br px-5 pb-8 pt-5">
       <view class="mb-6 flex items-center justify-between">
         <view>
           <text class="mb-1 block text-sm text-white/80">

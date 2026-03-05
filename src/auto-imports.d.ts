@@ -9,6 +9,7 @@ declare global {
   const Apis: typeof import('./api/index')['Apis']
   const CommonUtil: typeof import('wot-design-uni')['CommonUtil']
   const EffectScope: typeof import('vue')['EffectScope']
+  const PageBizType: typeof import('./utils/constants')['PageBizType']
   const Role: typeof import('./composables/useTabbar')['Role']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const alovaInstance: typeof import('./api/index')['alovaInstance']
@@ -16,6 +17,7 @@ declare global {
   const apiDefinitions: typeof import('./api/apiDefinitions')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const bizGradients: typeof import('./utils/constants')['bizGradients']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -108,6 +110,7 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const pageBizMap: typeof import('./utils/constants')['pageBizMap']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const persist: typeof import('./store/persist')['persist']
   const persistPlugin: typeof import('./store/persist')['persistPlugin']
@@ -135,6 +138,7 @@ declare global {
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
+  const statusColors: typeof import('./utils/constants')['statusColors']
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -356,6 +360,9 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { PageBizType } from './utils/constants'
+  import('./utils/constants')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -366,12 +373,14 @@ declare module 'vue' {
     readonly Apis: UnwrapRef<typeof import('./api/index')['Apis']>
     readonly CommonUtil: UnwrapRef<typeof import('wot-design-uni')['CommonUtil']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly PageBizType: UnwrapRef<typeof import('./utils/constants')['PageBizType']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly alovaInstance: UnwrapRef<typeof import('./api/index')['alovaInstance']>
     readonly api: UnwrapRef<typeof import('./api/index')['default']>
     readonly apiDefinitions: UnwrapRef<typeof import('./api/apiDefinitions')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly bizGradients: UnwrapRef<typeof import('./utils/constants')['bizGradients']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -463,6 +472,7 @@ declare module 'vue' {
     readonly onUnload: UnwrapRef<typeof import('@dcloudio/uni-app')['onUnload']>
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
+    readonly pageBizMap: UnwrapRef<typeof import('./utils/constants')['pageBizMap']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly persist: UnwrapRef<typeof import('./store/persist')['persist']>
     readonly persistPlugin: UnwrapRef<typeof import('./store/persist')['persistPlugin']>
@@ -490,6 +500,7 @@ declare module 'vue' {
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
+    readonly statusColors: UnwrapRef<typeof import('./utils/constants')['statusColors']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>

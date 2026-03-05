@@ -128,7 +128,7 @@ function handleViewDetail(order: typeof orders.value[0]) {
 
 <template>
   <view class="min-h-screen bg-slate-50">
-    <view class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-400 px-5 py-4">
+    <view class="bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">

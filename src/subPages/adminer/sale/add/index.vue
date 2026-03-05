@@ -157,7 +157,7 @@ function handleSave() {
 
 <template>
   <view class="min-h-screen bg-slate-50">
-    <view class="from-pink-500 via-rose-500 to-orange-400 bg-gradient-to-r px-5 py-4">
+    <view class="bg-gradient-to-r from-violet-500 to-purple-600 px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">
@@ -370,7 +370,7 @@ function handleSave() {
 
           <view
             v-if="item.category && item.orderQty"
-            class="flex items-center justify-between rounded-xl from-violet-50 to-purple-50 bg-gradient-to-r p-3"
+            class="flex items-center justify-between rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 p-3"
           >
             <view class="flex items-center">
               <text class="mr-2 text-sm">

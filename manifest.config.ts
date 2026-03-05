@@ -64,11 +64,12 @@ export default defineManifestConfig({
     optimization: {
       subPackages: true,
     },
-    appid: 'wx971af1d4e798772e',
+    appid: 'wxa3bf28af4f6a8863',
     setting: {
       urlCheck: false,
     },
     usingComponents: true,
+    lazyCodeLoading: 'requiredComponents',
     darkmode: true,
     themeLocation: 'theme.json',
   },

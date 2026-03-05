@@ -48,7 +48,7 @@
   },
   "quickapp": {},
   "mp-weixin": {
-    "appid": "wx971af1d4e798772e",
+    "appid": "wxa3bf28af4f6a8863",
     "setting": {
       "urlCheck": false
     },
@@ -56,6 +56,7 @@
     "optimization": {
       "subPackages": true
     },
+    "lazyCodeLoading": "requiredComponents",
     "darkmode": true,
     "themeLocation": "theme.json"
   },
