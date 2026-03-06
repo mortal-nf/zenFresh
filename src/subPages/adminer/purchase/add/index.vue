@@ -128,7 +128,7 @@ function handleSave() {
 
 <template>
   <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : 'bg-slate-50'">
-    <view class="bg-gradient-to-r from-emerald-500 to-teal-600 px-5 py-4">
+    <view class="from-emerald-500 to-teal-600 bg-gradient-to-r px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">
@@ -162,7 +162,7 @@ function handleSave() {
         >
           <template #default="{ value }">
             <view
-              class="flex items-center justify-between rounded-xl border px-4 py-3"
+              class="flex items-center justify-between border rounded-xl px-4 py-3"
               :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
             >
               <view class="flex items-center">
@@ -189,7 +189,7 @@ function handleSave() {
       </view>
     </view>
 
-    <view class="px-4 pt-4">
+    <view class="px-4 pb-30 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full bg-indigo-500" />
         <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
@@ -241,7 +241,7 @@ function handleSave() {
             >
               <template #default="{ value }">
                 <view
-                  class="flex items-center justify-between rounded-xl border px-4 py-3"
+                  class="flex items-center justify-between border rounded-xl px-4 py-3"
                   :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
                 >
                   <view class="flex items-center">
@@ -281,7 +281,7 @@ function handleSave() {
               >
                 <template #default="{ value }">
                   <view
-                    class="rounded-xl border px-3 py-2.5 text-center"
+                    class="border rounded-xl px-3 py-2.5 text-center"
                     :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
                   >
                     <text :class="isDark ? 'text-gray-100' : 'text-gray-800'">
@@ -336,7 +336,7 @@ function handleSave() {
       </view>
 
       <view
-        class="flex items-center justify-center rounded-2xl border-2 border-dashed p-4"
+        class="flex items-center justify-center border-2 rounded-2xl border-dashed p-4"
         :class="isDark ? 'border-indigo-700 bg-dark-700' : 'border-indigo-200 bg-white'"
         @click="addItem"
       >

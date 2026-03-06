@@ -243,7 +243,7 @@ function handleSave() {
       </view>
     </view>
 
-    <view class="px-4 pt-4">
+    <view class="px-4 pb-30 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full bg-violet-500" />
         <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
