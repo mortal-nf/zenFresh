@@ -2,15 +2,15 @@
  * 页面业务类型枚举
  */
 export enum PageBizType {
-  HOME = 'home',           // 首页/工作台
-  PURCHASE = 'purchase',   // 采购相关
-  SALE = 'sale',           // 销售相关
+  HOME = 'home', // 首页/工作台
+  PURCHASE = 'purchase', // 采购相关
+  SALE = 'sale', // 销售相关
   INVENTORY = 'inventory', // 库存管理
-  ORDER = 'order',         // 订单管理
-  CUSTOMER = 'customer',   // 客户管理
-  ANALYSIS = 'analysis',   // 数据分析
-  USER = 'user',           // 用户中心
-  SETTINGS = 'settings',   // 系统设置
+  ORDER = 'order', // 订单管理
+  CUSTOMER = 'customer', // 客户管理
+  ANALYSIS = 'analysis', // 数据分析
+  USER = 'user', // 用户中心
+  SETTINGS = 'settings', // 系统设置
 }
 
 /**

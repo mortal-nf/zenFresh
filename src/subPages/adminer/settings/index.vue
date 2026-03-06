@@ -47,7 +47,7 @@ function handleToggle(key: keyof typeof settings.value) {
 </script>
 
 <template>
-  <view class="min-h-screen bg-slate-50">
+  <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : 'bg-slate-50'">
     <view
       class="bg-gradient-to-br px-5 py-4"
       :class="isDark ? 'from-slate-800 via-slate-700 to-slate-600' : 'from-indigo-600 via-purple-600 to-pink-500'"
@@ -72,12 +72,12 @@ function handleToggle(key: keyof typeof settings.value) {
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full" :style="{ backgroundColor: currentThemeColor.primary }" />
-        <text class="text-gray-800 font-medium">
+        <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           主题配色
         </text>
       </view>
 
-      <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="rounded-2xl p-4 shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
         <view class="grid grid-cols-3 gap-3">
           <view
             v-for="option in themeColorOptions"
@@ -102,7 +102,7 @@ function handleToggle(key: keyof typeof settings.value) {
             </view>
             <text
               class="text-sm font-medium"
-              :class="currentThemeColor.value === option.value ? 'text-gray-800' : 'text-gray-500'"
+              :class="currentThemeColor.value === option.value ? (isDark ? 'text-gray-100' : 'text-gray-800') : (isDark ? 'text-gray-400' : 'text-gray-500')"
             >
               {{ option.name }}
             </text>
@@ -114,13 +114,13 @@ function handleToggle(key: keyof typeof settings.value) {
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full bg-slate-500" />
-        <text class="text-gray-800 font-medium">
+        <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           外观设置
         </text>
       </view>
 
-      <view class="rounded-2xl bg-white shadow-sm">
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+      <view class="rounded-2xl shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
             <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :style="{ backgroundColor: `${currentThemeColor.primary}15` }">
               <text class="text-xl">
@@ -128,10 +128,10 @@ function handleToggle(key: keyof typeof settings.value) {
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 深色模式
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 切换深色/浅色主题
               </text>
             </view>
@@ -143,24 +143,24 @@ function handleToggle(key: keyof typeof settings.value) {
             @click="toggleTheme()"
           >
             <view
-              class="h-5 w-5 rounded-full bg-white shadow transition-transform"
-              :class="isDark ? 'translate-x-5' : 'translate-x-0.5'"
+              class="h-5 w-5 rounded-full shadow transition-transform"
+              :class="isDark ? 'bg-white translate-x-5' : 'bg-white translate-x-0.5'"
             />
           </view>
         </view>
 
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-blue-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-blue-900/30' : 'bg-blue-50'">
+              <text class="text-xl" :class="isDark ? 'text-blue-400' : ''">
                 📱
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 跟随系统
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 自动跟随系统主题
               </text>
             </view>
@@ -170,18 +170,18 @@ function handleToggle(key: keyof typeof settings.value) {
           </wd-button>
         </view>
 
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-indigo-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-indigo-900/30' : 'bg-indigo-50'">
+              <text class="text-xl" :class="isDark ? 'text-indigo-400' : ''">
                 🔔
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 消息通知
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 接收订单提醒
               </text>
             </view>
@@ -193,24 +193,24 @@ function handleToggle(key: keyof typeof settings.value) {
             @click="handleToggle('notifications')"
           >
             <view
-              class="h-5 w-5 rounded-full bg-white shadow transition-transform"
-              :class="settings.notifications ? 'translate-x-5' : 'translate-x-0.5'"
+              class="h-5 w-5 rounded-full shadow transition-transform"
+              :class="settings.notifications ? (isDark ? 'bg-white translate-x-5' : 'bg-white translate-x-5') : 'bg-white translate-x-0.5'"
             />
           </view>
         </view>
 
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-emerald-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-emerald-900/30' : 'bg-emerald-50'">
+              <text class="text-xl" :class="isDark ? 'text-emerald-400' : ''">
                 🔊
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 提示音
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 操作反馈声音
               </text>
             </view>
@@ -222,24 +222,24 @@ function handleToggle(key: keyof typeof settings.value) {
             @click="handleToggle('sound')"
           >
             <view
-              class="h-5 w-5 rounded-full bg-white shadow transition-transform"
-              :class="settings.sound ? 'translate-x-5' : 'translate-x-0.5'"
+              class="h-5 w-5 rounded-full shadow transition-transform"
+              :class="settings.sound ? 'bg-white translate-x-5' : 'bg-white translate-x-0.5'"
             />
           </view>
         </view>
 
         <view class="flex items-center justify-between px-4 py-4">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-purple-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-purple-900/30' : 'bg-purple-50'">
+              <text class="text-xl" :class="isDark ? 'text-purple-400' : ''">
                 📳
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 振动反馈
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 操作振动提示
               </text>
             </view>
@@ -251,8 +251,8 @@ function handleToggle(key: keyof typeof settings.value) {
             @click="handleToggle('vibration')"
           >
             <view
-              class="h-5 w-5 rounded-full bg-white shadow transition-transform"
-              :class="settings.vibration ? 'translate-x-5' : 'translate-x-0.5'"
+              class="h-5 w-5 rounded-full shadow transition-transform"
+              :class="settings.vibration ? 'bg-white translate-x-5' : 'bg-white translate-x-0.5'"
             />
           </view>
         </view>
@@ -262,24 +262,24 @@ function handleToggle(key: keyof typeof settings.value) {
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full bg-amber-500" />
-        <text class="text-gray-800 font-medium">
+        <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           系统设置
         </text>
       </view>
 
-      <view class="rounded-2xl bg-white shadow-sm">
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+      <view class="rounded-2xl shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-amber-900/30' : 'bg-amber-50'">
+              <text class="text-xl" :class="isDark ? 'text-amber-400' : ''">
                 🔄
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 自动更新
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 新版本自动下载
               </text>
             </view>
@@ -291,50 +291,50 @@ function handleToggle(key: keyof typeof settings.value) {
             @click="handleToggle('autoUpdate')"
           >
             <view
-              class="h-5 w-5 rounded-full bg-white shadow transition-transform"
-              :class="settings.autoUpdate ? 'translate-x-5' : 'translate-x-0.5'"
+              class="h-5 w-5 rounded-full shadow transition-transform"
+              :class="settings.autoUpdate ? 'bg-white translate-x-5' : 'bg-white translate-x-0.5'"
             />
           </view>
         </view>
 
-        <view class="flex items-center justify-between border-b border-gray-50 px-4 py-4">
+        <view class="flex items-center justify-between border-b px-4 py-4" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-rose-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-rose-900/30' : 'bg-rose-50'">
+              <text class="text-xl" :class="isDark ? 'text-rose-400' : ''">
                 🌐
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 语言设置
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 简体中文
               </text>
             </view>
           </view>
-          <text class="text-gray-400">
+          <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
             ›
           </text>
         </view>
 
         <view class="flex items-center justify-between px-4 py-4">
           <view class="flex items-center">
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-cyan-50">
-              <text class="text-xl">
+            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-cyan-900/30' : 'bg-cyan-50'">
+              <text class="text-xl" :class="isDark ? 'text-cyan-400' : ''">
                 💾
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 清除缓存
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 当前 23.5 MB
               </text>
             </view>
           </view>
-          <text class="text-gray-400">
+          <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
             ›
           </text>
         </view>
@@ -342,9 +342,9 @@ function handleToggle(key: keyof typeof settings.value) {
     </view>
 
     <view class="px-4 pb-8 pt-4">
-      <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="rounded-2xl p-4 shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
         <view class="flex items-center justify-center">
-          <text class="text-sm text-gray-400">
+          <text class="text-sm" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
             当前版本 v1.4.0
           </text>
         </view>

@@ -3,6 +3,7 @@ import { onShow } from '@dcloudio/uni-app'
 import { useRouter } from '@wot-ui/router'
 import { computed, ref } from 'vue'
 import { useGlobalToast } from '@/composables/useGlobalToast'
+import { useManualTheme } from '@/composables/useManualTheme'
 
 defineOptions({
   name: 'Adminer',
@@ -10,6 +11,9 @@ defineOptions({
 
 const router = useRouter()
 const { success } = useGlobalToast()
+const { theme } = useManualTheme()
+
+const isDark = computed(() => theme.value === 'dark')
 
 const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
@@ -103,7 +107,7 @@ function getStatusConfig(status: string) {
 </script>
 
 <template>
-  <view class="min-h-screen bg-slate-50">
+  <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : 'bg-slate-50'">
     <view class="from-violet-600 via-purple-600 to-pink-500 bg-gradient-to-br px-5 pb-8 pt-5">
       <view class="mb-6 flex items-center justify-between">
         <view>
@@ -146,7 +150,7 @@ function getStatusConfig(status: string) {
     </view>
 
     <view class="mx-4 -mt-6">
-      <view class="grid grid-cols-4 gap-3 rounded-2xl bg-white p-4 shadow-indigo-500/10 shadow-lg">
+      <view class="grid grid-cols-4 gap-3 rounded-2xl p-4 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'" :style="{ boxShadow: isDark ? 'none' : 'var(--un-shadow-color, 0 10px 15px -3px rgba(0, 0, 0, 0.1))' }">
         <view
           v-for="action in quickActions"
           :key="action.label"
@@ -155,11 +159,11 @@ function getStatusConfig(status: string) {
         >
           <view
             class="mb-2 h-12 w-12 flex items-center justify-center rounded-xl"
-            :style="{ backgroundColor: `${action.color}15` }"
+            :style="{ backgroundColor: isDark ? `${action.color}30` : `${action.color}15` }"
           >
             <text class="text-xl" :class="[action.icon]" :style="{ color: action.color }" />
           </view>
-          <text class="text-xs text-gray-600">
+          <text class="text-xs" :class="isDark ? 'text-gray-300' : 'text-gray-600'">
             {{ action.label }}
           </text>
         </view>
@@ -170,25 +174,25 @@ function getStatusConfig(status: string) {
       <view class="mb-4 flex items-center justify-between">
         <view class="flex items-center">
           <view class="mr-2 h-5 w-1 rounded-full from-indigo-500 to-pink-500 bg-gradient-to-r" />
-          <text class="text-lg text-gray-800 font-semibold">
+          <text class="text-lg font-semibold" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
             待办事项
           </text>
         </view>
-        <view class="flex items-center rounded-full bg-red-50 px-3 py-1">
-          <text class="mr-1 text-xs text-red-500 font-medium">
+        <view class="flex items-center rounded-full px-3 py-1" :class="isDark ? 'bg-red-900/30' : 'bg-red-50'">
+          <text class="mr-1 text-xs font-medium" :class="isDark ? 'text-red-400' : 'text-red-500'">
             {{ pendingSales.length }}
           </text>
-          <text class="text-xs text-red-400">
+          <text :class="isDark ? 'text-red-500/70' : 'text-red-400'">
             项
           </text>
         </view>
       </view>
 
-      <view v-if="pendingSales.length === 0" class="rounded-2xl bg-white py-12 text-center shadow-sm">
+      <view v-if="pendingSales.length === 0" class="rounded-2xl p-4 text-center shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
         <view class="mb-2 text-4xl">
           🎉
         </view>
-        <text class="text-gray-400">
+        <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
           暂无待办事项
         </text>
       </view>
@@ -197,48 +201,52 @@ function getStatusConfig(status: string) {
         <view
           v-for="item in pendingSales"
           :key="item._id"
-          class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:shadow-md"
+          class="overflow-hidden rounded-2xl shadow-sm transition-all duration-300"
+          :class="isDark ? 'bg-dark-700' : 'bg-white'"
+          :style="{ boxShadow: isDark ? 'none' : '0 1px 3px 0 rgba(0, 0, 0, 0.1)' }"
         >
           <view class="flex items-center justify-between p-4">
             <view class="flex items-center">
               <view
                 class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl text-lg"
-                :style="{ backgroundColor: getStatusConfig(item.status).bg }"
+                :style="{ backgroundColor: isDark ? `${getStatusConfig(item.status).bg}30` : getStatusConfig(item.status).bg }"
               >
                 {{ getStatusConfig(item.status).icon }}
               </view>
               <view>
                 <view class="mb-0.5 flex items-center">
-                  <text class="mr-2 text-gray-800 font-medium">
+                  <text class="mr-2 font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                     {{ item.customerName }}
                   </text>
                   <view
                     class="rounded-full px-2 py-0.5 text-xs"
-                    :style="{ backgroundColor: getStatusConfig(item.status).bg, color: getStatusConfig(item.status).color }"
+                    :style="{ backgroundColor: isDark ? `${getStatusConfig(item.status).bg}30` : getStatusConfig(item.status).bg, color: getStatusConfig(item.status).color }"
                   >
                     {{ getStatusConfig(item.status).label }}
                   </view>
                 </view>
-                <text class="text-sm text-gray-400">
+                <text class="text-sm" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                   {{ item.items }}
                 </text>
               </view>
             </view>
             <view class="text-right">
-              <text class="block text-gray-800 font-semibold">
+              <text class="block font-semibold" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 ¥{{ item.amount }}
               </text>
-              <text v-if="item.deliveryTime" class="text-xs text-gray-400">
+              <text v-if="item.deliveryTime" class="text-xs" :class="isDark ? 'text-gray-500' : 'text-gray-400'">
                 {{ item.deliveryTime }}配送
               </text>
             </view>
           </view>
           <view
             v-if="item.status === 'pending' || item.status === 'delivered'"
-            class="flex border-t border-gray-50"
+            class="flex border-t"
+            :class="isDark ? 'border-gray-600' : 'border-gray-50'"
           >
             <view
-              class="flex-1 cursor-pointer p-3 text-center transition-colors hover:bg-gray-50"
+              class="flex-1 cursor-pointer p-3 text-center transition-colors"
+              :class="isDark ? 'hover:bg-gray-600' : 'hover:bg-gray-50'"
               @click="handleAction(item)"
             >
               <text
@@ -248,48 +256,6 @@ function getStatusConfig(status: string) {
                 {{ item.status === 'pending' ? '开始处理' : '提醒确认' }}
               </text>
             </view>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view class="px-5 pb-8 pt-6">
-      <view class="mb-4 flex items-center">
-        <view class="mr-2 h-5 w-1 rounded-full from-emerald-500 to-teal-500 bg-gradient-to-r" />
-        <text class="text-lg text-gray-800 font-semibold">
-          快捷功能
-        </text>
-      </view>
-
-      <view class="grid grid-cols-2 gap-3">
-        <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/charts/index' })">
-          <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50">
-            <text class="text-lg text-amber-500">
-              📊
-            </text>
-          </view>
-          <view>
-            <text class="block text-gray-800 font-medium">
-              数据统计
-            </text>
-            <text class="text-xs text-gray-400">
-              查看经营数据
-            </text>
-          </view>
-        </view>
-        <view class="flex items-center rounded-2xl bg-white p-4 shadow-sm" @click="router.push({ path: '/pages/profile/index' })">
-          <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl bg-purple-50">
-            <text class="text-lg text-purple-500">
-              👥
-            </text>
-          </view>
-          <view>
-            <text class="block text-gray-800 font-medium">
-              我的
-            </text>
-            <text class="text-xs text-gray-400">
-              身份切换/设置
-            </text>
           </view>
         </view>
       </view>

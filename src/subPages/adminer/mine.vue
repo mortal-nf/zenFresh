@@ -109,7 +109,7 @@ function handleSettingClick(item: typeof settingItems[0]) {
 </script>
 
 <template>
-  <view class="min-h-screen">
+  <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : ''">
     <view
       class="px-5 pb-8 pt-6"
       :class="isDark ? 'bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600' : 'bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500'"
@@ -124,7 +124,7 @@ function handleSettingClick(item: typeof settingItems[0]) {
               {{ userInfo.avatar }}
             </text>
           </view>
-          <view class="absolute h-6 w-6 flex items-center justify-center rounded-full bg-white -bottom-1 -right-1">
+          <view class="absolute h-6 w-6 flex items-center justify-center rounded-full -bottom-1 -right-1" :class="isDark ? 'bg-dark-900/50' : 'bg-white/20'">
             <text class="text-sm">
               ✏️
             </text>
@@ -185,20 +185,20 @@ function handleSettingClick(item: typeof settingItems[0]) {
     </view>
 
     <view class="mx-4 -mt-6">
-      <view class="rounded-2xl bg-white p-3 shadow-lg">
-        <view class="flex rounded-xl bg-slate-100 p-1">
+      <view class="rounded-2xl p-3 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'">
+        <view class="flex rounded-xl p-1" :class="isDark ? 'bg-dark-600' : 'bg-slate-100'">
           <view
             v-for="role in roles"
             :key="role.key"
             class="flex flex-1 items-center justify-center rounded-lg py-2.5 transition-all"
-            :class="currentRole === role.key ? 'bg-white shadow-sm' : ''"
+            :class="currentRole === role.key ? (isDark ? 'bg-dark-800 shadow-sm' : 'bg-white shadow-sm') : ''"
             @click="handleRoleSwitch(role)"
           >
             <text class="mr-1.5 text-base">
               {{ role.icon }}
             </text>
             <text
-              :class="currentRole === role.key ? '' : 'text-slate-500'"
+              :class="currentRole === role.key ? '' : (isDark ? 'text-gray-400' : 'text-slate-500')"
               class="text-sm font-medium"
               :style="currentRole === role.key ? { color: currentThemeColor.primary } : {}"
             >
@@ -215,16 +215,17 @@ function handleSettingClick(item: typeof settingItems[0]) {
           class="mr-2 h-5 w-1 rounded-full bg-gradient-to-r"
           :style="{ backgroundImage: `linear-gradient(to right, ${currentThemeColor.primary}, ${currentThemeColor.primary}80)` }"
         />
-        <text class="text-base text-gray-800 font-semibold">
+        <text class="text-base font-semibold" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           业务管理
         </text>
       </view>
 
-      <view class="rounded-2xl bg-white shadow-sm">
+      <view class="rounded-2xl shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
         <view
           v-for="item in menuItems"
           :key="item.title"
-          class="flex items-center justify-between border-b border-gray-50 px-4 py-4 last:border-b-0"
+          class="flex items-center justify-between border-b px-4 py-4 last:border-b-0"
+          :class="isDark ? 'border-gray-600' : 'border-gray-50'"
           @click="handleMenuClick(item)"
         >
           <view class="flex items-center">
@@ -237,15 +238,15 @@ function handleSettingClick(item: typeof settingItems[0]) {
               </text>
             </view>
             <view>
-              <text class="block text-gray-800 font-medium">
+              <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 {{ item.title }}
               </text>
-              <text class="text-xs text-gray-400">
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 {{ item.desc }}
               </text>
             </view>
           </view>
-          <text class="text-gray-300">
+          <text :class="isDark ? 'text-gray-500' : 'text-gray-300'">
             ›
           </text>
         </view>
@@ -253,39 +254,40 @@ function handleSettingClick(item: typeof settingItems[0]) {
     </view>
 
     <view class="px-4 pt-6">
-      <view class="px-4 pt-6">
+      <view>
         <view class="mb-3 flex items-center">
           <view class="mr-2 h-5 w-1 rounded-full from-slate-400 to-slate-600 bg-gradient-to-r" />
-          <text class="text-base text-gray-800 font-semibold">
+          <text class="text-base font-semibold" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
             其他设置
           </text>
         </view>
 
-        <view class="rounded-2xl bg-white shadow-sm">
+        <view class="rounded-2xl shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
           <view
             v-for="item in settingItems"
             :key="item.title"
-            class="flex items-center justify-between border-b border-gray-50 px-4 py-4 last:border-b-0"
+            class="flex items-center justify-between border-b px-4 py-4 last:border-b-0"
+            :class="isDark ? 'border-gray-600' : 'border-gray-50'"
             @click="handleSettingClick(item)"
           >
             <view class="flex items-center">
-              <view class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl bg-slate-100">
+              <view class="mr-3 h-11 w-11 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-gray-600' : 'bg-slate-100'">
                 <text class="text-xl">
                   {{ item.icon }}
                 </text>
               </view>
-              <text class="text-gray-800 font-medium">
+              <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                 {{ item.title }}
               </text>
             </view>
-            <text class="text-gray-300">
+            <text :class="isDark ? 'text-gray-500' : 'text-gray-300'">
               ›
             </text>
           </view>
         </view>
       </view>
 
-      <view class="px-4 pb-8 pt-6">
+      <view class="pb-8 pt-6">
         <view
           class="rounded-2xl p-5 text-center shadow-lg"
           :style="{ backgroundImage: `linear-gradient(to right, ${currentThemeColor.primary}, ${currentThemeColor.primary}dd)` }"
@@ -303,7 +305,7 @@ function handleSettingClick(item: typeof settingItems[0]) {
       </view>
 
       <view class="pb-8 text-center">
-        <text class="text-xs text-gray-400">
+        <text class="text-xs" :class="isDark ? 'text-gray-500' : 'text-gray-400'">
           真鲜速达 ZenFresh v1.4.0
         </text>
       </view>

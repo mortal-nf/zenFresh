@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { useRouter } from '@wot-ui/router'
+import { computed, ref } from 'vue'
 import { useGlobalToast } from '@/composables/useGlobalToast'
+import { useManualTheme } from '@/composables/useManualTheme'
 
 definePage({
   name: 'orders',
@@ -12,6 +13,9 @@ definePage({
 
 const router = useRouter()
 const { success } = useGlobalToast()
+const { theme, currentThemeColor } = useManualTheme()
+
+const isDark = computed(() => theme.value === 'dark')
 
 const orders = ref([
   {
@@ -94,7 +98,8 @@ const tabs = [
 ]
 
 const filteredOrders = computed(() => {
-  if (activeTab.value === 'all') return orders.value
+  if (activeTab.value === 'all')
+    return orders.value
   return orders.value.filter(o => o.status === activeTab.value)
 })
 
@@ -127,125 +132,169 @@ function handleViewDetail(order: typeof orders.value[0]) {
 </script>
 
 <template>
-  <view class="min-h-screen bg-slate-50">
-    <view class="bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-4">
+  <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : 'bg-slate-50'">
+    <view class="from-amber-500 to-orange-500 bg-gradient-to-r px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">
             订单管理
           </text>
-          <text class="text-2xl font-bold text-white">
+          <text class="text-2xl text-white font-bold">
             订单列表
           </text>
         </view>
-        <view class="flex h-12 w-12 items-center justify-center rounded-full bg-white/20">
-          <text class="text-2xl">📋</text>
+        <view class="h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
+          <text class="text-2xl">
+            📋
+          </text>
         </view>
       </view>
     </view>
 
     <view class="mx-4 -mt-4">
-      <view class="rounded-2xl bg-white p-4 shadow-lg shadow-amber-500/10">
+      <view class="rounded-2xl p-4 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'" :style="{ boxShadow: isDark ? 'none' : '0 10px 15px -3px rgba(245, 158, 11, 0.1)' }">
         <view class="mb-4 flex items-center justify-between">
           <view class="flex items-center">
             <view class="mr-2 h-2 w-2 rounded-full bg-amber-500" />
-            <text class="font-medium text-gray-800">今日订单</text>
+            <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
+              今日订单
+            </text>
           </view>
           <view class="text-right">
-            <text class="text-lg font-bold text-amber-600">¥{{ totalStats.totalAmount }}</text>
-            <text class="ml-1 text-xs text-gray-400">总金额</text>
+            <text class="text-lg font-bold" :class="isDark ? 'text-amber-400' : 'text-amber-600'">
+              ¥{{ totalStats.totalAmount }}
+            </text>
+            <text class="ml-1 text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
+              总金额
+            </text>
           </view>
         </view>
 
         <view class="grid grid-cols-4 gap-2">
-          <view class="rounded-xl bg-gray-50 p-3 text-center">
-            <text class="block text-2xl font-bold text-gray-800">{{ totalStats.total }}</text>
-            <text class="text-xs text-gray-400">全部</text>
+          <view class="rounded-xl p-3 text-center" :class="isDark ? 'bg-gray-600/50' : 'bg-gray-50'">
+            <text class="block text-2xl font-bold" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
+              {{ totalStats.total }}
+            </text>
+            <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
+              全部
+            </text>
           </view>
-          <view class="rounded-xl bg-blue-50 p-3 text-center">
-            <text class="block text-2xl font-bold text-blue-600">{{ totalStats.pending }}</text>
-            <text class="text-xs text-blue-500">待处理</text>
+          <view class="rounded-xl p-3 text-center" :class="isDark ? 'bg-blue-900/30' : 'bg-blue-50'">
+            <text class="block text-2xl font-bold" :class="isDark ? 'text-blue-400' : 'text-blue-600'">
+              {{ totalStats.pending }}
+            </text>
+            <text class="text-xs" :class="isDark ? 'text-blue-400' : 'text-blue-500'">
+              待处理
+            </text>
           </view>
-          <view class="rounded-xl bg-purple-50 p-3 text-center">
-            <text class="block text-2xl font-bold text-purple-600">{{ totalStats.confirmed }}</text>
-            <text class="text-xs text-purple-500">已确认</text>
+          <view class="rounded-xl p-3 text-center" :class="isDark ? 'bg-purple-900/30' : 'bg-purple-50'">
+            <text class="block text-2xl font-bold" :class="isDark ? 'text-purple-400' : 'text-purple-600'">
+              {{ totalStats.confirmed }}
+            </text>
+            <text class="text-xs" :class="isDark ? 'text-purple-400' : 'text-purple-500'">
+              已确认
+            </text>
           </view>
-          <view class="rounded-xl bg-amber-50 p-3 text-center">
-            <text class="block text-2xl font-bold text-amber-600">{{ totalStats.delivered }}</text>
-            <text class="text-xs text-amber-500">配送中</text>
+          <view class="rounded-xl p-3 text-center" :class="isDark ? 'bg-amber-900/30' : 'bg-amber-50'">
+            <text class="block text-2xl font-bold" :class="isDark ? 'text-amber-400' : 'text-amber-600'">
+              {{ totalStats.delivered }}
+            </text>
+            <text class="text-xs" :class="isDark ? 'text-amber-400' : 'text-amber-500'">
+              配送中
+            </text>
           </view>
         </view>
       </view>
     </view>
 
     <view class="px-4 pt-4">
-      <view class="mb-4 flex rounded-xl bg-white p-1">
+      <view class="mb-4 flex rounded-xl p-1" :class="isDark ? 'bg-gray-700' : 'bg-white'">
         <view
           v-for="tab in tabs"
           :key="tab.key"
           class="flex-1 rounded-lg py-2.5 text-center text-sm transition-all"
-          :class="activeTab === tab.key ? 'bg-amber-500 text-white shadow-md' : 'text-gray-500'"
+          :class="activeTab === tab.key ? (isDark ? 'bg-amber-600 text-white' : 'bg-amber-500 text-white shadow-md') : (isDark ? 'text-gray-400' : 'text-gray-500')"
           @click="activeTab = tab.key"
         >
           {{ tab.label }}
         </view>
       </view>
 
-      <view class="space-y-3 pb-24">
+      <view class="pb-24 space-y-3">
         <view
           v-for="order in filteredOrders"
           :key="order.id"
-          class="overflow-hidden rounded-2xl bg-white shadow-sm"
+          class="overflow-hidden rounded-2xl shadow-sm"
+          :class="isDark ? 'bg-dark-700' : 'bg-white'"
+          :style="{ boxShadow: isDark ? 'none' : '0 1px 3px 0 rgba(0, 0, 0, 0.1)' }"
         >
           <view class="p-4">
             <view class="mb-3 flex items-center justify-between">
               <view class="flex items-center">
-                <text class="mr-2 font-medium text-gray-800">{{ order.customerName }}</text>
+                <text class="mr-2 font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
+                  {{ order.customerName }}
+                </text>
                 <view
                   class="rounded-full px-2 py-0.5 text-xs"
-                  :style="{ backgroundColor: getStatusConfig(order.status).bg, color: getStatusConfig(order.status).color }"
+                  :style="{ backgroundColor: isDark ? `${getStatusConfig(order.status).bg}30` : getStatusConfig(order.status).bg, color: getStatusConfig(order.status).color }"
                 >
                   {{ getStatusConfig(order.status).label }}
                 </view>
               </view>
-              <text class="text-xs text-gray-400">{{ order.orderNo }}</text>
+              <text class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
+                {{ order.orderNo }}
+              </text>
             </view>
 
             <view class="mb-3 flex items-center">
-              <view class="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
-                <text class="text-lg">🏨</text>
+              <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-amber-900/30' : 'bg-amber-50'">
+                <text class="text-lg">
+                  🏨
+                </text>
               </view>
               <view>
-                <text class="block text-sm text-gray-600">{{ order.customerType }}</text>
-                <text class="text-xs text-gray-400">{{ order.phone }}</text>
+                <text class="block text-sm" :class="isDark ? 'text-gray-300' : 'text-gray-600'">
+                  {{ order.customerType }}
+                </text>
+                <text class="text-xs" :class="isDark ? 'text-gray-500' : 'text-gray-400'">
+                  {{ order.phone }}
+                </text>
               </view>
             </view>
 
-            <view class="mb-3 rounded-xl bg-gray-50 p-3">
-              <text class="text-sm text-gray-600">{{ order.items }}</text>
+            <view class="mb-3 rounded-xl p-3" :class="isDark ? 'bg-gray-600/50' : 'bg-gray-50'">
+              <text class="text-sm" :class="isDark ? 'text-gray-300' : 'text-gray-600'">
+                {{ order.items }}
+              </text>
             </view>
 
             <view class="flex items-center justify-between">
-              <view class="flex items-center text-sm text-gray-500">
-                <text class="mr-4">{{ order.orderDate }}下单</text>
+              <view class="flex items-center text-sm" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
+                <text class="mr-4">
+                  {{ order.orderDate }}下单
+                </text>
                 <text>{{ order.deliveryDate }}配送</text>
               </view>
-              <text class="text-xl font-bold text-amber-600">
+              <text class="text-xl font-bold" :class="isDark ? 'text-amber-400' : 'text-amber-600'">
                 ¥{{ order.amount }}
               </text>
             </view>
           </view>
 
-          <view class="flex border-t border-gray-50">
+          <view class="flex border-t" :class="isDark ? 'border-gray-600' : 'border-gray-50'">
             <view
-              class="flex-1 cursor-pointer border-r border-gray-50 p-3 text-center transition-colors hover:bg-gray-50"
+              class="flex-1 cursor-pointer border-r p-3 text-center transition-colors"
+              :class="[isDark ? 'border-gray-600' : 'border-gray-50', isDark ? 'hover:bg-gray-600' : 'hover:bg-gray-50']"
               @click="handleViewDetail(order)"
             >
-              <text class="text-sm text-gray-500">查看详情</text>
+              <text class="text-sm" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
+                查看详情
+              </text>
             </view>
             <view
               v-if="order.status !== 'cancelled'"
-              class="flex-1 cursor-pointer p-3 text-center transition-colors hover:bg-gray-50"
+              class="flex-1 cursor-pointer p-3 text-center transition-colors"
+              :class="isDark ? 'hover:bg-gray-600' : 'hover:bg-gray-50'"
               @click="handleOrderAction(order)"
             >
               <text

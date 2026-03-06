@@ -129,7 +129,8 @@ export const useUserStore = defineStore('user', {
      * @param role 角色 key
      */
     switchRole(role: UserRole) {
-      if (this.currentRole === role) return
+      if (this.currentRole === role)
+        return
 
       this.currentRole = role
       this.userInfo.role = role

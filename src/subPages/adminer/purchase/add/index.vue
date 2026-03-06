@@ -2,6 +2,7 @@
 import { useRouter } from '@wot-ui/router'
 import { computed, ref } from 'vue'
 import { useGlobalToast } from '@/composables/useGlobalToast'
+import { useManualTheme } from '@/composables/useManualTheme'
 
 definePage({
   name: 'purchase-add',
@@ -12,6 +13,9 @@ definePage({
 
 const router = useRouter()
 const { success } = useGlobalToast()
+const { theme, currentThemeColor } = useManualTheme()
+
+const isDark = computed(() => theme.value === 'dark')
 
 const today = new Date()
 const purchaseDate = ref(formatDate(today))
@@ -123,8 +127,8 @@ function handleSave() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-slate-50">
-    <view class="from-emerald-500 to-teal-600 bg-gradient-to-r px-5 py-4">
+  <view class="min-h-screen" :class="isDark ? 'bg-dark-900' : 'bg-slate-50'">
+    <view class="bg-gradient-to-r from-emerald-500 to-teal-600 px-5 py-4">
       <view class="flex items-center justify-between">
         <view>
           <text class="block text-sm text-white/80">
@@ -143,10 +147,10 @@ function handleSave() {
     </view>
 
     <view class="mx-4 -mt-4">
-      <view class="rounded-2xl bg-white p-5 shadow-emerald-500/10 shadow-lg">
+      <view class="rounded-2xl p-5 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'" :style="{ boxShadow: isDark ? 'none' : '0 10px 15px -3px rgba(16, 185, 129, 0.1)' }">
         <view class="mb-4 flex items-center">
           <view class="mr-2 h-2 w-2 rounded-full bg-emerald-500" />
-          <text class="text-gray-800 font-medium">
+          <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
             农户信息
           </text>
         </view>
@@ -158,24 +162,25 @@ function handleSave() {
         >
           <template #default="{ value }">
             <view
-              class="flex items-center justify-between border border-gray-200 rounded-xl bg-gray-50 px-4 py-3"
+              class="flex items-center justify-between rounded-xl border px-4 py-3"
+              :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
             >
               <view class="flex items-center">
-                <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-full bg-emerald-100">
+                <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-full" :class="isDark ? 'bg-emerald-900/30' : 'bg-emerald-100'">
                   <text class="text-lg">
                     👨‍🌾
                   </text>
                 </view>
                 <view>
-                  <text class="block text-gray-800 font-medium">
+                  <text class="block font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                     {{ value?.label || '请选择农户' }}
                   </text>
-                  <text v-if="value" class="text-xs text-gray-400">
+                  <text v-if="value" class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                     {{ value.phone }} · {{ value.address }}
                   </text>
                 </view>
               </view>
-              <text class="text-gray-400">
+              <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                 ›
               </text>
             </view>
@@ -187,10 +192,10 @@ function handleSave() {
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
         <view class="mr-2 h-2 w-2 rounded-full bg-indigo-500" />
-        <text class="text-gray-800 font-medium">
+        <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           采购明细
         </text>
-        <text class="ml-2 text-xs text-gray-400">
+        <text class="ml-2 text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-400'">
           ({{ items.length }}项)
         </text>
       </view>
@@ -198,22 +203,25 @@ function handleSave() {
       <view
         v-for="(item, index) in items"
         :key="item.id"
-        class="mb-4 rounded-2xl bg-white p-4 shadow-sm"
+        class="mb-4 rounded-2xl p-4 shadow-sm"
+        :class="isDark ? 'bg-dark-700' : 'bg-white'"
       >
         <view class="mb-3 flex items-center justify-between">
           <view class="flex items-center">
             <view
-              class="mr-2 h-6 w-6 flex items-center justify-center rounded-full bg-indigo-100 text-xs text-indigo-600 font-medium"
+              class="mr-2 h-6 w-6 flex items-center justify-center rounded-full text-xs font-medium"
+              :class="isDark ? 'bg-indigo-900/30 text-indigo-400' : 'bg-indigo-100 text-indigo-600'"
             >
               {{ index + 1 }}
             </view>
-            <text class="text-gray-800 font-medium">
+            <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
               品类 {{ index + 1 }}
             </text>
           </view>
           <text
             v-if="items.length > 1"
-            class="text-sm text-red-400"
+            class="text-sm"
+            :class="isDark ? 'text-red-400' : 'text-red-400'"
             @click="removeItem(index)"
           >
             删除
@@ -222,7 +230,7 @@ function handleSave() {
 
         <view class="space-y-3">
           <view>
-            <text class="mb-2 block text-xs text-gray-500 font-medium">
+            <text class="mb-2 block text-xs font-medium" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
               选择品类
             </text>
             <wd-picker
@@ -233,17 +241,18 @@ function handleSave() {
             >
               <template #default="{ value }">
                 <view
-                  class="flex items-center justify-between border border-gray-200 rounded-xl bg-gray-50 px-4 py-3"
+                  class="flex items-center justify-between rounded-xl border px-4 py-3"
+                  :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
                 >
                   <view class="flex items-center">
                     <text class="mr-2 text-lg">
                       {{ getCategoryIcon(item.category) }}
                     </text>
-                    <text class="text-gray-800">
+                    <text :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                       {{ value?.label || '请选择' }}
                     </text>
                   </view>
-                  <text class="text-gray-400">
+                  <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                     ›
                   </text>
                 </view>
@@ -253,7 +262,7 @@ function handleSave() {
 
           <view class="flex gap-3">
             <view class="flex-1">
-              <text class="mb-2 block text-xs text-gray-500 font-medium">
+              <text class="mb-2 block text-xs font-medium" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
                 数量
               </text>
               <wd-input
@@ -263,7 +272,7 @@ function handleSave() {
               />
             </view>
             <view class="w-20">
-              <text class="mb-2 block text-xs text-gray-500 font-medium">
+              <text class="mb-2 block text-xs font-medium" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
                 单位
               </text>
               <wd-picker
@@ -271,8 +280,11 @@ function handleSave() {
                 :columns="units"
               >
                 <template #default="{ value }">
-                  <view class="border border-gray-200 rounded-xl bg-gray-50 px-3 py-2.5 text-center">
-                    <text class="text-gray-800">
+                  <view
+                    class="rounded-xl border px-3 py-2.5 text-center"
+                    :class="isDark ? 'border-gray-600 bg-dark-800' : 'border-gray-200 bg-gray-50'"
+                  >
+                    <text :class="isDark ? 'text-gray-100' : 'text-gray-800'">
                       {{ value || '单位' }}
                     </text>
                   </view>
@@ -282,7 +294,7 @@ function handleSave() {
           </view>
 
           <view>
-            <text class="mb-2 block text-xs text-gray-500 font-medium">
+            <text class="mb-2 block text-xs font-medium" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
               单价 (元/{{ item.unit }})
             </text>
             <wd-input
@@ -291,7 +303,7 @@ function handleSave() {
               placeholder="输入单价"
             >
               <template #suffix>
-                <text class="text-gray-400">
+                <text :class="isDark ? 'text-gray-400' : 'text-gray-400'">
                   元
                 </text>
               </template>
@@ -299,18 +311,19 @@ function handleSave() {
           </view>
 
           <view
-            class="flex items-center justify-between rounded-xl from-emerald-50 to-teal-50 bg-gradient-to-r p-3"
+            class="flex items-center justify-between rounded-xl p-3"
+            :class="isDark ? 'bg-emerald-900/20' : 'bg-gradient-to-r from-emerald-50 to-teal-50'"
           >
-            <text class="text-sm text-gray-600">
+            <text class="text-sm" :class="isDark ? 'text-gray-300' : 'text-gray-600'">
               小计
             </text>
-            <text class="text-lg text-emerald-600 font-bold">
+            <text class="text-lg font-bold" :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">
               ¥{{ getSubtotal(item) }}
             </text>
           </view>
 
           <view>
-            <text class="mb-2 block text-xs text-gray-500 font-medium">
+            <text class="mb-2 block text-xs font-medium" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
               备注 (选填)
             </text>
             <wd-input
@@ -323,34 +336,35 @@ function handleSave() {
       </view>
 
       <view
-        class="flex items-center justify-center border-2 border-indigo-200 rounded-2xl border-dashed bg-white p-4"
+        class="flex items-center justify-center rounded-2xl border-2 border-dashed p-4"
+        :class="isDark ? 'border-indigo-700 bg-dark-700' : 'border-indigo-200 bg-white'"
         @click="addItem"
       >
-        <view class="mr-2 h-6 w-6 flex items-center justify-center rounded-full bg-indigo-100">
-          <text class="text-lg text-indigo-600">
+        <view class="mr-2 h-6 w-6 flex items-center justify-center rounded-full" :class="isDark ? 'bg-indigo-900/30' : 'bg-indigo-100'">
+          <text class="text-lg" :class="isDark ? 'text-indigo-400' : 'text-indigo-600'">
             +
           </text>
         </view>
-        <text class="text-indigo-600 font-medium">
+        <text class="font-medium" :class="isDark ? 'text-indigo-400' : 'text-indigo-600'">
           添加品类
         </text>
       </view>
     </view>
 
-    <view class="pb-safe fixed bottom-0 left-0 right-0 bg-white px-4 py-4 shadow-lg">
+    <view class="pb-safe fixed bottom-0 left-0 right-0 px-4 py-4 shadow-lg" :class="isDark ? 'bg-dark-800' : 'bg-white'">
       <view class="mb-3 flex items-center justify-between">
         <view class="flex items-center">
-          <text class="text-gray-600">
+          <text :class="isDark ? 'text-gray-300' : 'text-gray-600'">
             合计
           </text>
-          <view class="ml-2 rounded-full bg-indigo-100 px-2 py-0.5">
-            <text class="text-xs text-indigo-600 font-medium">
+          <view class="ml-2 rounded-full px-2 py-0.5" :class="isDark ? 'bg-indigo-900/30' : 'bg-indigo-100'">
+            <text class="text-xs font-medium" :class="isDark ? 'text-indigo-400' : 'text-indigo-600'">
               {{ items.length }}项
             </text>
           </view>
         </view>
         <view>
-          <text class="text-2xl text-indigo-600 font-bold">
+          <text class="text-2xl font-bold" :class="isDark ? 'text-indigo-400' : 'text-indigo-600'">
             ¥{{ totalAmount }}
           </text>
         </view>
