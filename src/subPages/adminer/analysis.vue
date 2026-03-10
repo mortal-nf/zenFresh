@@ -133,7 +133,10 @@ function getCategoryTrend(categoryName: string) {
     </view>
 
     <view class="mx-4 -mt-4">
-      <view class="rounded-2xl p-4 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'" :style="{ boxShadow: isDark ? 'none' : '0 10px 15px -3px rgba(99, 102, 241, 0.1)' }">
+      <view
+        class="rounded-2xl p-4 shadow-lg" :class="isDark ? 'bg-dark-700' : 'bg-white'"
+        :style="{ boxShadow: isDark ? 'none' : '0 10px 15px -3px rgba(99, 102, 241, 0.1)' }"
+      >
         <view class="mb-4 flex rounded-xl p-1" :class="isDark ? 'bg-gray-600' : 'bg-slate-100'">
           <view
             v-for="period in periods" :key="period.key"
@@ -146,7 +149,10 @@ function getCategoryTrend(categoryName: string) {
         </view>
 
         <view class="grid grid-cols-3 gap-3">
-          <view class="rounded-xl p-3" :class="isDark ? 'bg-blue-900/20' : 'bg-gradient-to-br from-blue-50 to-indigo-50'">
+          <view
+            class="rounded-xl p-3"
+            :class="isDark ? 'bg-blue-900/20' : 'bg-gradient-to-br from-blue-50 to-indigo-50'"
+          >
             <view class="mb-1 flex items-center justify-between">
               <text class="text-xs" :class="isDark ? 'text-blue-400' : 'text-blue-600'">
                 销售额
@@ -163,7 +169,10 @@ function getCategoryTrend(categoryName: string) {
             </text>
           </view>
 
-          <view class="rounded-xl p-3" :class="isDark ? 'bg-emerald-900/20' : 'bg-gradient-to-br from-emerald-50 to-teal-50'">
+          <view
+            class="rounded-xl p-3"
+            :class="isDark ? 'bg-emerald-900/20' : 'bg-gradient-to-br from-emerald-50 to-teal-50'"
+          >
             <view class="mb-1 flex items-center justify-between">
               <text class="text-xs" :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">
                 进货量
@@ -181,7 +190,10 @@ function getCategoryTrend(categoryName: string) {
             </text>
           </view>
 
-          <view class="rounded-xl p-3" :class="isDark ? 'bg-amber-900/20' : 'bg-gradient-to-br from-amber-50 to-orange-50'">
+          <view
+            class="rounded-xl p-3"
+            :class="isDark ? 'bg-amber-900/20' : 'bg-gradient-to-br from-amber-50 to-orange-50'"
+          >
             <view class="mb-1 flex items-center justify-between">
               <text class="text-xs" :class="isDark ? 'text-amber-400' : 'text-amber-600'">
                 利润
@@ -204,7 +216,7 @@ function getCategoryTrend(categoryName: string) {
 
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
-        <view class="mr-2 h-2 w-2 rounded-full bg-violet-500" />
+        <view class="mr-2 h-5 w-1 rounded-full bg-violet-500 from-indigo-500 bg-gradient-to-r" />
         <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           销售趋势
         </text>
@@ -243,7 +255,7 @@ function getCategoryTrend(categoryName: string) {
 
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
-        <view class="mr-2 h-2 w-2 rounded-full bg-emerald-500" />
+        <view class="mr-2 h-5 w-1 rounded-full bg-emerald-500 from-indigo-500 bg-gradient-to-r" />
         <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           品类分析
         </text>
@@ -268,11 +280,17 @@ function getCategoryTrend(categoryName: string) {
       </view>
 
       <view v-if="selectedCategory === 'all'" class="space-y-3">
-        <view v-for="item in categoryStats" :key="item.name" class="overflow-hidden rounded-2xl shadow-sm" :class="isDark ? 'bg-dark-700' : 'bg-white'">
+        <view
+          v-for="item in categoryStats" :key="item.name" class="overflow-hidden rounded-2xl shadow-sm"
+          :class="isDark ? 'bg-dark-700' : 'bg-white'"
+        >
           <view class="p-4">
             <view class="mb-3 flex items-center justify-between">
               <view class="flex items-center">
-                <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl" :class="isDark ? 'bg-gray-600' : 'bg-slate-100'">
+                <view
+                  class="mr-3 h-10 w-10 flex items-center justify-center rounded-xl"
+                  :class="isDark ? 'bg-gray-600' : 'bg-slate-100'"
+                >
                   <text class="text-lg">
                     {{ item.icon }}
                   </text>
@@ -386,8 +404,8 @@ function getCategoryTrend(categoryName: string) {
 
         <view class="h-32 flex items-end justify-between gap-1">
           <view
-            v-for="(value, index) in categoryMonthlyTrend[selectedCategory as keyof typeof categoryMonthlyTrend.value]" :key="index"
-            class="flex flex-1 flex-col items-center"
+            v-for="(value, index) in categoryMonthlyTrend[selectedCategory as keyof typeof categoryMonthlyTrend.value]"
+            :key="index" class="flex flex-1 flex-col items-center"
           >
             <view
               class="w-full rounded-t-lg transition-all duration-500" :style="{
@@ -441,7 +459,7 @@ function getCategoryTrend(categoryName: string) {
 
     <view class="px-4 pt-4">
       <view class="mb-3 flex items-center">
-        <view class="mr-2 h-2 w-2 rounded-full bg-amber-500" />
+        <view class="mr-2 h-5 w-1 rounded-full bg-amber-500 from-amber-700 bg-gradient-to-r" />
         <text class="font-medium" :class="isDark ? 'text-gray-100' : 'text-gray-800'">
           Top 客户
         </text>
@@ -456,7 +474,10 @@ function getCategoryTrend(categoryName: string) {
             >
               {{ index + 1 }}
             </view>
-            <view class="mr-3 h-10 w-10 flex items-center justify-center rounded-full" :class="isDark ? 'bg-gray-600' : 'bg-slate-100'">
+            <view
+              class="mr-3 h-10 w-10 flex items-center justify-center rounded-full"
+              :class="isDark ? 'bg-gray-600' : 'bg-slate-100'"
+            >
               <text class="text-lg">
                 {{ customer.avatar }}
               </text>
